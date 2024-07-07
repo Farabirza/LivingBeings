@@ -1,0 +1,10 @@
+
+body {
+    background-color: #dde9f5;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
