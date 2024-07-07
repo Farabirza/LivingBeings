@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class ApiAuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        $this->validateError();
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
@@ -29,7 +31,7 @@ class ApiAuthController extends Controller
         $token = $user->createToken('token')->plainTextToken;
         if(!$user) {
             return response()->json([
-                'message' => 'Registration failed!',
+                'alert' => 'Registration failed!',
             ], 400);
         }
         return response()->json([
@@ -38,10 +40,11 @@ class ApiAuthController extends Controller
         ], 200);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if(Auth::attempt($request->only('email', 'password'))) {
-            $user = User::where('email', $request->email)->first();
+        $this->validateError();
+        if(Auth::attempt($request->only('username', 'password'))) {
+            $user = User::where('username', $request->username)->first();
             $token = $user->createToken('token')->plainTextToken;
             return response()->json([
                 'message' => 'Welcome back '.$user->username,
@@ -49,8 +52,8 @@ class ApiAuthController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message' => "Invalid credentials",
-            ]);
+                'alert' => "Invalid credentials"
+            ], 400);
         }
     }
 

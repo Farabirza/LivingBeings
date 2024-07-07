@@ -5,39 +5,51 @@
 
 @section('content')
 
-<section id="section-header">
+<section id="section-header" class="vh-100 center">
     <div class="container">
         <div class="row">
-            <div class="center py-4">
+            <div class="text-center py-4">
+                <p class="text-sm mb-0">Welcome to</p>
                 <h1>ANIMAL INDEX</h1>
-            </div>
-            <div class="w-100 d-flex gap-2 py-2">
-                <select class="form-select" style="max-width: 120px">
-                    <option disabled>Category</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <input type="text" class="form-control">
-                <button class="center gap-2 btn btn-primary"><i class='bx bx-search-alt-2'></i>Search</button>
+                <div class="center gap-3 mt-5">
+                    <button class="btn btn-primary" onclick="showModal('login')">Login</button>
+                    <button class="btn btn-outline-success" onclick="showModal('register')">Register</button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="section-thumbnails">
-    <div class="container py-4">
-        <div class="row">
-            @for($i = 0; $i <= 8; $i++)
-            <div class="col-md-4 p-3">
-                <div class="bg-light rounded shadow-lg" style="height: 120px"></div>
-            </div>
-            @endfor
-        </div>
-    </div>
-</section>
+@include('components.modal_auth')
 
 @endsection
 
 @push('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+});
+
+function showModal(type) {
+    $('.modal').modal('hide');
+    $('#modal-auth-form')[0].reset();
+    switch(type) {
+        case 'register':
+            $('#modal-auth-title').html(`<i class="bx bx-user-plus"></i>Register`);
+            $('#modal-auth-form-email').show();
+            $('#modal-auth-form-password_confirmation').show();
+            $('#modal-auth-form').attr('action', '/register');
+            $('#modal-auth-btn-submit').html('Register');
+        break;
+        case 'login':
+            $('#modal-auth-title').html(`<i class='bx bx-log-in-circle'></i>Login`);
+            $('#modal-auth-form-email').hide();
+            $('#modal-auth-form-password_confirmation').hide();
+            $('#modal-auth-form').attr('action', '/login');
+            $('#modal-auth-btn-submit').html('Login');
+        break;
+    }
+    $('#modal-auth').modal('show');
+}
+
+</script>
 @endpush

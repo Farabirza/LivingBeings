@@ -11,15 +11,34 @@
     <!-- BOXICONS -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    @stack('css-styles')
 
 </head>
 <body style="background-color: #dde9f5">
     <main>
         @yield('content')
     </main>
+    <script type="text/javascript">
+    const domain = 'http://127.0.0.1:8000/api';
+    $('.btn-cancel').on('click', function() {
+       $('.alert').html('').hide();
+    });
+    // validation message
+    function validationMessage(errorObject) {
+        Object.keys(errorObject).forEach(name => {
+            $('#alert-'+name).html('');
+            errorObject[name].forEach(message => {
+                $('#alert-'+name).hide().removeClass('d-none').fadeIn('slow').append("<li class='list-unstyled'>"+message+"</li>");
+            });
+        });
+    };
+    </script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <!-- BOXICONS -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    @stack('scripts')
 </body>
 </html>
