@@ -8,8 +8,6 @@ class Logs
 
     public function __construct($filename)
     {
-        $filename = $filename.'_'.date('Y-m-d').'.log';
-
         if(file_exists(storage_path('/logs/'.$filename))) {
             $this->path = fopen(storage_path('/logs/'.$filename), 'a');
         } else {

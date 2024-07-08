@@ -9,6 +9,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function __construct()
+    {
+        $this->web_title = 'AniDex';
+    }
+
     public function validateError()
     {
         if(isset($validator) && $validator->fails()) {

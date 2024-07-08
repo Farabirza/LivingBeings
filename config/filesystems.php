@@ -56,6 +56,18 @@ return [
             'throw' => false,
         ],
 
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => env('FTP_HOST', '127.0.0.1'),
+            'username' => env('FTP_USERNAME', 'irzafarabi'),
+            'password' => env('FTP_PASSWORD', '....'),
+            'port'     => env('FTP_PORT', 21),
+            'root'     => env('FTP_ROOT', '/ftp_home'),
+            'passive'  => env('FTP_PASSIVE', true),
+            'ssl'      => env('FTP_SSL', false),
+            'timeout'  => env('FTP_TIMEOUT', 30),
+        ],
+
     ],
 
     /*

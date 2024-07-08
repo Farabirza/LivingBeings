@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnimalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,6 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+// Route::get('/animal/{animal_id}', [AnimalController::class, 'show'])->middleware('auth');
+Route::resource('/animal', AnimalController::class)->only('show')->middleware('auth');

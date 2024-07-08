@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @push('css-styles')
+<style>
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:hover {
+    font-weight: 600;
+}
+</style>
 @endpush
 
 @section('content')
@@ -28,11 +37,17 @@
 <section id="section-thumbnails">
     <div class="container py-4">
         <div class="row">
-            @for($i = 0; $i <= 8; $i++)
+            @forelse($animals as $animal)
             <div class="col-md-4 p-3">
-                <div class="bg-light rounded shadow-lg" style="height: 120px"></div>
+                <div class="bg-light center rounded shadow-lg" style="height: 120px">
+                    <a href="/animal/{{$animal->id}}">{{ ucfirst($animal->name) }}</a>
+                </div>
             </div>
-            @endfor
+            @empty
+            @endforelse
+            <div class="mt-3">
+                {{ $animals->onEachSide(5)->links() }}
+            </div>
         </div>
     </div>
 </section>
